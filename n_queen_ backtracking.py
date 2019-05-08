@@ -1,7 +1,11 @@
 class queen():
-    def __init__(self, board):
+    def __init__(self, board_size):
         self.board = board
-        self.board_size = len(board)
+        self.board_size = board_size
+
+    #backtracking algorithn to place queen one by one safely on the board
+    def place_queens(self):
+        
 
     #print n*n board
     def print_board(self, board = None):
