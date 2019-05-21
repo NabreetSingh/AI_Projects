@@ -15,32 +15,28 @@ class queen():
         for col in self.board:
             if(col == column):
                 pass
-            else if(board[column] == board[co;]):
-                count++
+            elif(board[column] == board[col]):
+                count = count + 1
 
         #the postivie diagonal
         for col in self.board:
             if (col < column):
                 if (board[col] == board[column] - (column - col)):
-                    count++
-            else if (col > column):
+                    count = count +1
+            elif (col > column):
                 if (board[col] == board[column] + (column - col)):
-                    count++
+                    count = count +1 
 
         #the negative diagonal
         for col in self.board:
             if (col < column):
                 if (board[col] == board[column] + (column - col)):
-                    count++
-            else if (col > column):
+                    count = count + 1
+            elif (col > column):
                 if (board[col] == board[column] - (column - col)):
-                    count++
+                    count = count +1
         
         return count
-
-
-
-
 
     #print n*n board
     def print_board(self, board = None):
