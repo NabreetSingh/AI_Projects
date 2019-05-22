@@ -1,5 +1,5 @@
 # from __future__ import print_function
-# Uncomment above line you are not running python3
+# Uncomment above line if you are not running python3
 class queen():
     def __init__(self, board_size):
         self.board = []*board_size
