@@ -1,4 +1,5 @@
-from __future__ import print_function
+# from __future__ import print_function
+# Uncomment above line you are not running python3
 class queen():
     def __init__(self, board_size):
         self.board = []*board_size
@@ -14,7 +15,7 @@ class queen():
                 return True
 
         row = 0
-        
+        #backtracking with recursion
         while(row < self.board_size):
             self.board.append(row)
             if(self.is_safe(column) == True and self.place_queens(column + 1) == True):
@@ -22,7 +23,7 @@ class queen():
             self.board.pop()
             row = row + 1
         return False
-       
+    
 
     def is_safe(self, column):
         count = 0
@@ -68,6 +69,7 @@ class queen():
                 else:
                     print('.', end ='\t')
             print("\n")
-        
-build1 = queen(4);
-build1.main();
+
+board_size = input("Enter the size of the board: ")   
+build1 = queen(board_size);
+build1.main()
