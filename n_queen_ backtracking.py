@@ -1,4 +1,4 @@
-# from __future__ import print_function
+from __future__ import print_function
 # Uncomment above line if you are not running python3
 class queen():
     def __init__(self, board_size):
