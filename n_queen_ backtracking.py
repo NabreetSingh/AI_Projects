@@ -1,5 +1,8 @@
-from __future__ import print_function
-# Uncomment above line if you are not running python3
+# Uncomment following line if you are not running python3
+#from __future__ import print_function
+import time
+start = time.time()
+
 class queen():
     def __init__(self, board_size):
         self.board = []*board_size
@@ -73,3 +76,6 @@ class queen():
 board_size = input("Enter the size of the board: ")   
 build1 = queen(board_size);
 build1.main()
+
+end = time.time()
+print("Solution found in :", end-start)
