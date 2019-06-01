@@ -1,5 +1,5 @@
 # Uncomment following line if you are not running python3
-from __future__ import print_function
+#from __future__ import print_function
 import random
 import time
 start = time.time()
