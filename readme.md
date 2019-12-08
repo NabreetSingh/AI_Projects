@@ -1,4 +1,4 @@
-NQueens
+# NQueens
 
 The NQueen problem is to place N number of queen on an NxN chess board without having attack on ohter queens i.e no queen can be on the same column, row or diagonal of other queen. I'll be implementing using follwing algorithms:
 
