@@ -1,0 +1,231 @@
+<html>
+
+    <body>
+
+        <div id = 'title' class = 'title'>
+            <h1>CSP algorithm of N-Queens Problem</h1><br>
+        </div>
+
+        <div class = 'user_input'>
+            Board Size: <input id = 'board_size' type = 'text' value = '10'></input><br>
+            <button id = 'execute'>Execute</button>
+        </div>
+
+        <pre id = 'initial_board'></pre>
+        <pre id = 'final_board'></pre>
+        <pre id = 'test1'></pre>
+        <pre id = 'test2'></pre>
+        <pre id='test3'></pre>
+        <pre id='test4'></pre>
+
+    </body>
+
+</html>
+
+<script>
+
+var board_size;
+var counts = 0;
+
+//main method
+document.getElementById('execute').onclick = function csp()
+{
+    board_size = document.getElementById('board_size').value;
+
+    var board = [];
+    place_queens(0)
+       
+    
+    print_board(board)
+    function place_queens(col) {
+        //if (is_goal(board)==true && board.length == board_size)
+            //return true;
+            if(col == undefined)
+            {
+               return true
+            }
+            var row = 0
+            while(row < board_size)
+            {
+                counts++;
+                //board.push(row);
+                board[col] = row;
+                if (is_safe(board, col) == true && place_queens(most_constrained_columns(board)) == true)
+                {
+                    return true
+                }
+                board[col] = undefined;
+                row++
+                /*if(row == board_size)
+                {
+                    var last_row = board[board.length-1]
+                    row = last_row + 1
+                    board.pop()
+                }*/
+            }
+           return false
+        }
+    
+}
+
+//checks if a queen in safe in specfic row of a column
+function is_safe(board, col)
+    {
+        var count = 0;
+
+        for (var c = 0; c < board.length; c++)
+            if(c == col)
+               continue
+            else if(board[c] == board[col])
+               count++
+
+        // the positive diagonal
+        for (var c = 0; c < board.length; c++)
+            if (c < col) {
+                if (board[c] == board[col] - (col - c))
+                    count++;
+            }
+            else if (c > col) {
+                if (board[c] == board[col] + (col - c))
+                    count++;
+            }
+
+        // the negative diagonal
+        for (var c = 0; c < board.length; c++)
+            if (c < col) {
+                if (board[c] == board[col] + (col - c))
+                    count++;
+            }
+            else if (c > col) {
+                if (board[c] == board[col] - (col - c))
+                    count++;
+            }
+
+        if(count > 0)
+            return false;
+        else
+            return true;
+    }
+
+//count number of constrained rows in a specific column
+function count_no_constrained_rows(board, col)
+{
+    var current_state = board[col];
+    var count = 0;
+    for(var r = 0; r < board_size; r ++)
+    {   
+      
+        board[col] = r;
+        if(is_safe(board, col) == false)
+        {
+            count++;
+        }
+       
+    }
+    board[col] = current_state
+    return count;
+}
+
+//helper function to check if the final board is a valid solution by returning no. conflicts in each columsn
+function count_conflicts(board, col)
+{
+    var count = 0;
+    for (var c = 0; c < board_size; c++)
+        if(c == col)
+           continue
+        else if(board[c] == board[col])
+           count++
+
+   // the positive diagonal
+    for (var c = 0; c < board_size; c++)
+        if (c < col) {
+            if (board[c] == board[col] - (col - c))
+                count++;
+        }
+
+        else if (c > col) {
+            if (board[c] == board[col] + (col - c))
+                count++;
+        }
+    // the negative diagonal
+    for (var c = 0; c < board_size; c++)
+        if (c < col) {
+            if (board[c] == board[col] + (col - c))
+              count++;
+        }
+
+        else if (c > col) {
+            if (board[c] == board[col] - (col - c))
+                count++;
+        }
+    return count;
+}
+
+//find most constrained column
+function most_constrained_columns(board)
+{
+     var most_constrained_columns = []
+     var least_conflicts = 0
+
+     for(var col = 0; col < board_size; col++)
+     {
+         if(board[col] != undefined)
+         {
+             continue
+         }
+         if(count_no_constrained_rows(board, col) > least_conflicts)
+         {
+             least_conflicts = count_no_constrained_rows(board, col)
+             most_constrained_columns = []
+             most_constrained_columns.push(col)
+         }
+         else if(count_no_constrained_rows(board, col) == least_conflicts)
+         {
+             most_constrained_columns.push(col)
+         }
+     }
+     return most_constrained_columns[0]
+
+}
+
+
+function is_goal(board)
+{
+    var count = 0;
+    for(var col = 0; col < board.length; col++)
+    {
+        count += count_conflicts(board, col)
+    
+
+    if(count == 0)
+        return true;
+    else 
+        return false;
+}
+}
+
+//print final board in 2d plane
+function print_board(board)
+{
+    var final_board = '';
+    for(var col = 0 ; col < board.length; col++)
+    {
+        for(var row = 0; row < board.length; row++)
+        {
+           if(board[row] == col)
+                final_board += 'Q\t';
+           else
+                final_board +='_\t';
+        }
+        final_board += '\n';
+    }
+    document.getElementById('final_board').innerHTML = final_board;
+    for (var col = 0; col < board.length; col++)
+        document.getElementById('test1').innerHTML += count_conflicts(board,col)
+    
+    document.getElementById('test1').innerHTML += '\n'
+    document.getElementById('test2').innerHTML = "No. of placemets tried: " + counts;
+
+}
+
+</script>
